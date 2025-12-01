@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BohusDal – Kommunalt IT-samarbete</title>
+    <meta name="description" content="BohusDal är ett kommunalt IT-samarbete i Bohuslän och Dalsland. Tillsammans bygger vi en säker, hållbar och kostnadseffektiv digital infrastruktur för kommuninvånarna." />
+
+    <style>
+        :root {
+            --bg: #050816;
+            --bg-alt: #0b1020;
+            --accent: #34d399;
+            --accent-soft: rgba(52, 211, 153, 0.12);
+            --accent-strong: #10b981;
+            --text: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-subtle: rgba(148, 163, 184, 0.3);
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --max-width: 1120px;
+            --radius-xl: 1.5rem;
+            --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.9);
+            --transition-fast: 160ms ease-out;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, #1f2937 0, transparent 55%),
+                radial-gradient(circle at bottom right, #0f766e 0, transparent 55%),
+                var(--bg);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        main {
+            padding: 1.5rem 1.5rem 3rem;
+        }
+
+        .shell {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* HEADER & NAV */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(to bottom,
+                rgba(5, 8, 22, 0.95),
+                rgba(5, 8, 22, 0.75),
+                transparent
+            );
+            border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-mark {
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 0.9rem;
+            background:
+                radial-gradient(circle at 10% 0, #a7f3d0 0, transparent 55%),
+                radial-gradient(circle at 100% 100%, #22c55e 0, transparent 55%),
+                linear-gradient(135deg, #0f172a, #022c22);
+            box-shadow:
+                0 0 0 1px rgba(16, 185, 129, 0.4),
+                0 12px 30px rgba(15, 23, 42, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            font-size: 0.9rem;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .brand-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            position: relative;
+            padding-bottom: 0.1rem;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -0.1rem;
+            width: 0;
+            height: 2px;
+            border-radius: 999px;
+            background: linear-gradient(to right, var(--accent-strong), #22d3ee);
+            transition: width var(--transition-fast);
+        }
+
+        nav a:hover::after,
+        nav a:focus-visible::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid rgba(52, 211, 153, 0.8);
+            background: radial-gradient(circle at 0 0, rgba(52, 211, 153, 0.2), transparent 55%);
+            font-size: 0.86rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+        }
+
+        .nav-cta span.icon-dot {
+            display: inline-block;
+            width: 0.38rem;
+            height: 0.38rem;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: radial-gradient(circle at 0 0, rgba(52, 211, 153, 0.32), transparent 55%);
+        }
+
+        .nav-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--text);
+            margin: 4px 0;
+        }
+
+        @media (max-width: 768px) {
+            .header-inner {
+                padding-inline: 1rem;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                left: 0;
+                margin-inline: auto;
+                padding: 0.75rem 1.5rem 1rem;
+                background: rgba(5, 8, 22, 0.98);
+                border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.4rem;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            .nav-cta {
+                margin-top: 0.5rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+        }
+
+        /* HERO */
+
+        .hero {
+            margin-top: 2.5rem;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero-badge-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 999px;
+            background: radial-gradient(circle, #6ee7b7, #16a34a);
+            box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.4);
+        }
+
+        .hero-title {
+            margin-top: 1.3rem;
+            font-size: clamp(2rem, 3.35vw + 1.1rem, 3rem);
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+        }
+
+        .hero-title span.accent {
+            background: linear-gradient(to right, #22c55e, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-lead {
+            margin-top: 1.1rem;
+            max-width: 34rem;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1.5rem;
+        }
+
+        .hero-chip {
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: rgba(15, 23, 42, 0.9);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .hero-chip span.bullet {
+            width: 0.35rem;
+            height: 0.35rem;
+            border-radius: 999px;
+            background: #22d3ee;
+        }
+
+        .hero-actions {
+            margin-top: 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.8rem 1.35rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: transform var(--transition-fast),
+                        box-shadow var(--transition-fast),
+                        background var(--transition-fast),
+                        border-color var(--transition-fast);
+        }
+
+        .btn-primary {
+            background: radial-gradient(circle at 0 0, #6ee7b7, #0f766e);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #022c22;
+            box-shadow: 0 18px 40px rgba(5, 150, 105, 0.45);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 22px 50px rgba(5, 150, 105, 0.6);
+        }
+
+        .btn-ghost {
+            background: rgba(15, 23, 42, 0.95);
+            border-color: rgba(148, 163, 184, 0.5);
+            color: var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(15, 23, 42, 0.98);
+            border-color: rgba(226, 232, 240, 0.9);
+        }
+
+        .btn-primary svg,
+        .btn-ghost svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .hero-meta {
+            margin-top: 0.9rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .hero-meta strong {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* HERO CARD */
+
+        .hero-card {
+            position: relative;
+            padding: 1.6rem;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(140deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -120px;
+            background:
+                radial-gradient(circle at 0 0, rgba(34, 197, 94, 0.13), transparent 60%),
+                radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.16), transparent 65%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .hero-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .pill span.dot {
+            width: 0.35rem;
+            height: 0.35rem;
+            border-radius: 999px;
+            background: #22c55e;
+        }
+
+        .hero-card-title {
+            margin-top: 1.1rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .hero-card-sub {
+            margin-top: 0.35rem;
+            font-size: 0.86rem;
+            color: var(--text-muted);
+        }
+
+        .hero-stats {
+            margin-top: 1.2rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            font-size: 0.78rem;
+        }
+
+        .stat {
+            padding: 0.65rem 0.7rem;
+            border-radius: 0.85rem;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            margin-top: 0.15rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .stat-value span.pill {
+            margin-left: 0.25rem;
+            font-size: 0.68rem;
+        }
+
+        .hero-timeline {
+            margin-top: 1.3rem;
+            padding-top: 1.1rem;
+            border-top: 1px dashed rgba(148, 163, 184, 0.5);
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        .timeline-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .timeline-label {
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.7rem;
+            color: #6b7280;
+        }
+
+        .timeline-value {
+            font-weight: 500;
+            color: #e5e7eb;
+        }
+
+        .hero-footnote {
+            margin-top: 0.6rem;
+            font-size: 0.72rem;
+            color: #6b7280;
+        }
+
+        /* SECTIONS */
+
+        section {
+            margin-top: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1.5rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .section-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 32rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.3rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .card {
+            padding: 1.2rem 1.3rem;
+            border-radius: 1.1rem;
+            border: 1px solid var(--border-subtle);
+            background: var(--card-bg);
+            backdrop-filter: blur(18px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.8rem;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .card-tag {
+            font-size: 0.72rem;
+            padding: 0.1rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: var(--text-muted);
+        }
+
+        .card-body {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .card-list {
+            margin: 0.7rem 0 0;
+            padding-left: 1.05rem;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .card-list li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* PARTNER LIST */
+
+        .partner-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+        }
+
+        .partner-pill {
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+        }
+
+        /* NEWS */
+
+        .news-item {
+            padding: 0.9rem 0.4rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .news-meta {
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+
+        .news-title {
+            font-size: 0.92rem;
+            font-weight: 500;
+        }
+
+        .news-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CONTACT */
+
+        .contact-card {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 780px) {
+            .contact-card {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .contact-main p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .contact-label {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #9ca3af;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-detail {
+            font-size: 0.9rem;
+        }
+
+        .contact-detail a {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 3.5rem;
+            border-top: 1px solid rgba(31, 41, 55, 0.9);
+            padding: 1.4rem 1.5rem 1.8rem;
+            font-size: 0.8rem;
+            color: #6b7280;
+            background: radial-gradient(circle at 50% -40%, rgba(17, 24, 39, 0.9), transparent 65%);
+        }
+
+        .footer-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .footer-right span {
+            cursor: default;
+        }
+
+        .badge-domain {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.9);
+            font-size: 0.78rem;
+            color: #9ca3af;
+        }
+
+        .badge-domain span.dot {
+            width: 0.32rem;
+            height: 0.32rem;
+            border-radius: 999px;
+            background: #22c55e;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-mark">BD</div>
+            <div class="brand-text">
+                <div class="brand-title">BohusDal</div>
+                <div class="brand-sub">Kommunalt IT-samarbete</div>
+            </div>
+        </div>
+        <button class="nav-toggle" aria-label="Meny" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav>
+            <a href="#about">Om samarbetet</a>
+            <a href="#services">Tjänsteområden</a>
+            <a href="#partners">Kommuner</a>
+            <a href="#governance">Styrning</a>
+            <a href="#news">Aktuellt</a>
+            <a href="#contact" class="nav-cta">
+                <span class="icon-dot"></span>
+                Kontakt
+            </a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="shell">
+        <!-- HERO -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div>
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Gemensam digital kraft för Bohuslän &amp; Dalsland
+                </div>
+                <h1 id="hero-title" class="hero-title">
+                    Digitalt starkare – <span class="accent">tillsammans.</span>
+                </h1>
+                <p class="hero-lead">
+                    BohusDal är ett kommunalt IT-samarbete som samlar kompetens, plattformar
+                    och utveckling. Målet är en trygg, hållbar och kostnadseffektiv digital
+                    infrastruktur för invånare, medarbetare och verksamhet.
+                </p>
+
+                <div class="hero-grid" aria-hidden="true">
+                    <div class="hero-chip">
+                        <span class="bullet"></span>
+                        Gemensam identitet &amp; åtkomst
+                    </div>
+                    <div class="hero-chip">
+                        <span class="bullet"></span>
+                        Säker drift &amp; övervakning
+                    </div>
+                    <div class="hero-chip">
+                        <span class="bullet"></span>
+                        Standardiserad digital arbetsplats
+                    </div>
+                    <div class="hero-chip">
+                        <span class="bullet"></span>
+                        Effektivare upphandling &amp; licenser
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#about" class="btn-primary">
+                        Läs mer om BohusDal
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <path fill="currentColor"
+                                  d="M5 10.5h7.38l-2.94 2.94a.75.75 0 1 0 1.06 1.06l4.25-4.25a.75.75 0 0 0 0-1.06L10.5 4.94a.75.75 0 1 0-1.06 1.06L12.38 9H5a.75.75 0 0 0 0 1.5Z"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn-ghost">
+                        Kontakta samverkansledningen
+                        <svg viewBox="0 0 20 20" aria-hidden="true">
+                            <path fill="currentColor"
+                                  d="M3.5 6.75A2.75 2.75 0 0 1 6.25 4h7.5A2.75 2.75 0 0 1 16.5 6.75v6.5A2.75 2.75 0 0 1 13.75 16h-7.5A2.75 2.75 0 0 1 3.5 13.25v-6.5Zm2.05-.25a.25.25 0 0 0-.18.43l3.37 3.03a2.25 2.25 0 0 0 3.02 0l3.37-3.03a.25.25 0 0 0-.18-.43h-9.4Z"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <p class="hero-meta">
+                    <strong>BohusDal</strong> samlar flera kommuner i regionen – med gemensam
+                    strategi för plattform, säkerhet och digitalisering.
+                </p>
+            </div>
+
+            <aside class="hero-card" aria-label="Översikt BohusDal">
+                <div class="hero-card-inner">
+                    <div class="pill">
+                        <span class="dot"></span>
+                        Översikt samarbete
+                    </div>
+                    <div class="hero-card-title">
+                        Gemensam IT-struktur för kommunal verksamhet
+                    </div>
+                    <div class="hero-card-sub">
+                        Färre silos, mer återanvändning – och en tydlig modell för vem som gör vad
+                        inom drift, utveckling och informationssäkerhet.
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-label">Kommuner</div>
+                            <div class="stat-value">X–Y st</div>
+                            <div class="card-body" style="margin-top:0.25rem;font-size:0.75rem;">
+                                Formaliserat samarbete mellan kommuner i Bohuslän &amp; Dalsland.
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Fokusområden</div>
+                            <div class="stat-value">5 huvudspår</div>
+                            <ul class="card-list" style="margin-top:0.25rem;font-size:0.76rem;">
+                                <li>Identitet &amp; behörighet</li>
+                                <li>Digital arbetsplats</li>
+                                <li>Infrastruktur &amp; drift</li>
+                            </ul>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Inriktning</div>
+                            <div class="stat-value">
+                                Strategi 2025 →
+                            </div>
+                            <div class="card-body" style="margin-top:0.25rem;font-size:0.75rem;">
+                                Gemensam målbild och färdplan som uppdateras årligen.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-timeline">
+                        <div class="timeline-row">
+                            <div>
+                                <div class="timeline-label">Inriktning</div>
+                                <div class="timeline-value">
+                                    Samverkan, säkerhet &amp; skalbarhet
+                                </div>
+                            </div>
+                            <div>
+                                <div class="timeline-label">Webbplats</div>
+                                <div class="timeline-value">
+                                    bohusdal.se
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-footnote">
+                            Texten på denna sida är generell och kan anpassas efter exakt
+                            samarbetsupplägg, deltagande kommuner och beslutsstruktur.
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" aria-labelledby="about-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="about-title" class="section-title">Om BohusDal-samarbetet</h2>
+                </div>
+                <p class="section-sub">
+                    BohusDal är ett långsiktigt kommunalt IT-samarbete. Genom att dela plattformar,
+                    kompetens och arbetssätt kan kommunerna leverera stabila, säkra och moderna
+                    digitala tjänster – till en lägre total kostnad.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Varför vi samverkar</h3>
+                        <span class="card-tag">Syfte</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>Skapa en robust, gemensam IT-infrastruktur.</li>
+                            <li>Stärka informationssäkerhet och regelefterlevnad.</li>
+                            <li>Underlätta gemensamma upphandlingar och licenser.</li>
+                            <li>Frigöra tid till utveckling nära verksamheten.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Principer för samarbetet</h3>
+                        <span class="card-tag">Inriktning</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>”En gång, gemensamt – många gånger, lokalt.”</li>
+                            <li>Standardiserade plattformar och processer.</li>
+                            <li>Öppenhet, transparens och gemensam prioritering.</li>
+                            <li>Verksamhetsnytta och säkerhet går först.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Vad sidan bohusdal.se används till</h3>
+                        <span class="card-tag">Webbplats</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>Gemensam presentationsyta för samarbetet.</li>
+                            <li>Övergripande information till verksamhet &amp; ledning.</li>
+                            <li>Länkar till styrdokument, riktlinjer &amp; kontaktvägar.</li>
+                            <li>Aktuella nyheter och större förändringar.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section id="services" aria-labelledby="services-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="services-title" class="section-title">Gemensamma tjänsteområden</h2>
+                </div>
+                <p class="section-sub">
+                    BohusDal samlar flera IT-områden där det finns tydliga samordningsvinster.
+                    Exakta ansvarsgränser och innehåll definieras i gemensamma överenskommelser
+                    mellan kommunerna.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Identitet &amp; behörighet</h3>
+                        <span class="card-tag">IAM</span>
+                    </div>
+                    <div class="card-body">
+                        Gemensam strategi för:
+                        <ul class="card-list">
+                            <li>Kontohantering och livscykelprocesser.</li>
+                            <li>Federation, SSO och integrationsmönster.</li>
+                            <li>Multifaktorsinloggning och säker åtkomst.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Digital arbetsplats</h3>
+                        <span class="card-tag">Klient &amp; mobilitet</span>
+                    </div>
+                    <div class="card-body">
+                        Samordnad hantering av:
+                        <ul class="card-list">
+                            <li>Standardiserade klientplattformar.</li>
+                            <li>Mobilitet och hantering av enheter.</li>
+                            <li>Basapplikationer, säkerhetsnivåer och policyer.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Infrastruktur &amp; säkerhet</h3>
+                        <span class="card-tag">Drift</span>
+                    </div>
+                    <div class="card-body">
+                        Gemensamt fokus på:
+                        <ul class="card-list">
+                            <li>Nätverk, datacenter och plattformstjänster.</li>
+                            <li>Övervakning, loggning och incidenthantering.</li>
+                            <li>Backup, kontinuitet och beredskap.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- PARTNERS / GOVERNANCE -->
+        <section id="partners" aria-labelledby="partners-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="partners-title" class="section-title">Deltagande kommuner</h2>
+                </div>
+                <p class="section-sub">
+                    Här listas de kommuner och eventuella kommunalförbund som är formellt
+                    anslutna till BohusDal-samarbetet. Texten nedan är exempel och kan enkelt
+                    bytas mot skarp information.
+                </p>
+            </div>
+
+            <div class="card">
+                <p class="card-body" style="margin-bottom:0.75rem;">
+                    Exempel – ersätt med verkliga kommuner:
+                </p>
+                <div class="partner-list">
+                    <span class="partner-pill">Kommun A</span>
+                    <span class="partner-pill">Kommun B</span>
+                    <span class="partner-pill">Kommun C</span>
+                    <span class="partner-pill">Kommun D</span>
+                    <span class="partner-pill">Kommun E</span>
+                    <span class="partner-pill">Kommunalförbund / gemensam nämnd</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="governance" aria-labelledby="governance-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="governance-title" class="section-title">Styrning &amp; roller</h2>
+                </div>
+                <p class="section-sub">
+                    För att samarbetet ska fungera i praktiken behöver styrning, roller och
+                    beslutsvägar vara tydliga. Den här sektionen kan beskriva hur ni organiserar
+                    samverkan på strategisk, taktisk och operativ nivå.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Strategisk nivå</h3>
+                        <span class="card-tag">Politik &amp; ledning</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>Gemensam inriktnings- eller samverkansgrupp.</li>
+                            <li>Beslut om målbild, investeringar och större förändringar.</li>
+                            <li>Förankring i respektive kommuns ledningsstruktur.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Taktisk nivå</h3>
+                        <span class="card-tag">Styrgrupp</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>Gemensam styrgrupp med IT-chefer / motsvarande.</li>
+                            <li>Prioritering av gemensamma initiativ och roadmap.</li>
+                            <li>Uppföljning av ekonomi, risk och nyttorealisering.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Operativ nivå</h3>
+                        <span class="card-tag">Arbetsgrupper</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="card-list">
+                            <li>Tvärkommunala team inom t.ex. IAM, klient, nätverk.</li>
+                            <li>Gemensamma riktlinjer, mallar och tekniska standarder.</li>
+                            <li>Delning av erfarenheter, kod, konfigurationer och dokumentation.</li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- NEWS -->
+        <section id="news" aria-labelledby="news-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="news-title" class="section-title">Aktuellt från BohusDal</h2>
+                </div>
+                <p class="section-sub">
+                    Här kan ni lyfta större förändringar, nya gemensamma tjänster eller beslut
+                    som påverkar flera kommuner. Nedan finns exempelrader som kan ersättas med
+                    verkliga nyheter.
+                </p>
+            </div>
+
+            <div class="card">
+                <article class="news-item">
+                    <div class="news-meta">Exempel · 2025-11-01</div>
+                    <div class="news-title">Gemensam plattform för digital arbetsplats</div>
+                    <div class="news-text">
+                        Flera kommuner har beslutat att införa en gemensam standard för klient,
+                        hantering och säkerhetsnivåer. Införande sker stegvis per kommun.
+                    </div>
+                </article>
+
+                <article class="news-item">
+                    <div class="news-meta">Exempel · 2025-09-15</div>
+                    <div class="news-title">Förstärkt samarbete kring informationssäkerhet</div>
+                    <div class="news-text">
+                        En gemensam funktion för informationssäkerhet etableras med syfte att
+                        samordna riktlinjer, stödmaterial och incidenthantering.
+                    </div>
+                </article>
+
+                <article class="news-item">
+                    <div class="news-meta">Exempel · 2025-06-10</div>
+                    <div class="news-title">BohusDal.se lanseras</div>
+                    <div class="news-text">
+                        Webbplatsen <strong>bohusdal.se</strong> fungerar som gemensam
+                        presentationsyta för samarbetet och kommer löpande att fyllas med mer
+                        information och dokumentation.
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" aria-labelledby="contact-title">
+            <div class="section-header">
+                <div>
+                    <h2 id="contact-title" class="section-title">Kontakt &amp; mer information</h2>
+                </div>
+                <p class="section-sub">
+                    Här kan ni lägga kontaktvägar till samverkansledning, gemensamt funktionskonto
+                    eller respektive kommuns kontaktperson. Exempeltexten nedan kan bytas mot skarp
+                    information när strukturen är beslutad.
+                </p>
+            </div>
+
+            <div class="card contact-card">
+                <div class="contact-main">
+                    <p>
+                        För frågor om det kommunala IT-samarbetet BohusDal kan du i första hand
+                        vända dig till samverkansledningens funktionsbrevlåda. Är du verksam
+                        medarbetare kontaktar du som vanligt din lokala IT-support, som vid
+                        behov lyfter ärenden vidare inom samarbetet.
+                    </p>
+                    <p>
+                        På sikt kan denna sida även innehålla länkar till gemensamma styrdokument,
+                        tekniska riktlinjer, arkitekturprinciper och andra publika underlag.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="contact-block">
+                        <div class="contact-label">Funktionsbrevlåda</div>
+                        <div class="contact-detail">
+                            <a href="mailto:info@bohusdal.se">info@bohusdal.se</a>
+                        </div>
+                    </div>
+                    <div class="contact-block" style="margin-top:0.9rem;">
+                        <div class="contact-label">Webbplats</div>
+                        <div class="contact-detail">
+                            <a href="https://bohusdal.se">https://bohusdal.se</a>
+                        </div>
+                    </div>
+                    <div class="contact-block" style="margin-top:0.9rem;">
+                        <div class="contact-label">Ansvar</div>
+                        <div class="contact-detail">
+                            Ansvarig huvudman och organisatorisk placering kan anges här
+                            (t.ex. gemensam nämnd, värdkommun eller kommunalförbund).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>
+            &copy; <!-- Byt årtal vid behov --> 2025 BohusDal – kommunalt IT-samarbete.
+            All text på sidan är exempel och kan anpassas efter lokala beslut.
+        </div>
+        <div class="footer-right">
+            <span class="badge-domain">
+                <span class="dot"></span>
+                bohusdal.se
+            </span>
+            <span>Teknisk kontakt: <a href="mailto:info@bohusdal.se">info@bohusdal.se</a></span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Enkel mobilmeny
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector("nav");
+
+    if (navToggle && nav) {
+        navToggle.addEventListener("click", () => {
+            const isOpen = nav.classList.toggle("open");
+            navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        // Stäng menyn vid klick på länk (mobilt)
+        nav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                if (nav.classList.contains("open")) {
+                    nav.classList.remove("open");
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>
